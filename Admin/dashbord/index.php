@@ -1,7 +1,12 @@
 <?php
+error_reporting(null);
 include('../../connect.php');
-
-$result =    mysqli_query($conn, "SELECT * FROM registration");
+if (isset($_POST['limit'])) {
+    $number = $_POST['limit'];
+} else {
+    $number = 5;
+}
+$result =    mysqli_query($conn, "SELECT * FROM registration LIMIT $number");
 
 ?>
 
@@ -204,10 +209,15 @@ $result =    mysqli_query($conn, "SELECT * FROM registration");
                                         <h2>Existng <b>Users</b></h2>
                                     </div>
                                     <div class="col-sm-5">
-
-                                        <a type="button" class="btn btn-success" href="./adduser.php" class="btn btn-danger" data-toggle="modal" data-target="#form";>Add User</a>
+                                        <a type="button" class="btn btn-success" href="./adduser.php" class="btn btn-danger" data-toggle="modal" data-target="#form" ;>Add User</a>
                                         <a type="button" class="btn btn-success" href="./register-edit.php" ;>Update User</a>
-
+                                      
+                                        <form action="" method="post">
+                                            <input  name="limit" size="4"  style="width: 30%;" type="number" value="<?php echo $number; ?>">
+                                            <button type="submit" class="btn btn-danger"> submit</button>
+                                        </form>
+                                        
+                                       
                                     </div>
                                 </div>
                                 <!-- Model Popup For Add User  -->
@@ -215,8 +225,9 @@ $result =    mysqli_query($conn, "SELECT * FROM registration");
 
 
                                 <!-- Modal -->
-                                
+
                                 <!-- Model Popup End Hear  -->
+                                
 
                             </div>
 
@@ -406,38 +417,46 @@ $result =    mysqli_query($conn, "SELECT * FROM registration");
     <!-- Modal -->
 
 
-<div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="name">Enter User Name</label>
-            <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter User Name ">
-            <small id="name"  class="form-text text-muted">Your information is safe with us.</small>
-          </div>
-          <div class="form-group">
-            <label for="email">Enter User Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-          </div>
-          <div class="form-group">
-            <label for="password1">Confirm Password</label>
-            <input type="password" class="form-control" id="password2" placeholder="Confirm Password">
-          </div>
+    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="./post.php" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Enter Name</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="User Name ">
+                            <small id="name" class="form-text text-muted">Your information is safe with us.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Enter Email</label>
+                            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneno">Enter Phone no</label>
+                            <input type="text" class="form-control" id="phoneno" name="phoneno" placeholder="Phoneno">
+                        </div>
+                        <div class="form-group">
+                            <label for="password"> Password</label>
+                            <input type="text" class="form-control" id="password" name="password" placeholder=" Password">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-footer border-top-0 d-flex justify-content-center">
-          <button type="submit" class="btn btn-success">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
+
+
+
+
 
 
 
